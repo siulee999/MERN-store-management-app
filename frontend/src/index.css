@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1F2937;
+}
+
+@layer base {
+  body {
+    @apply w-dvw h-dvh min-w-[300px]
+  }
+
+  td, p {
+    @apply break-words hyphens-auto
+  }
+}
+
+@layer components {
+  .add-btn {
+   @apply px-3 bg-green-600 text-white rounded-lg hover:bg-green-700 hover:cursor-pointer flex justify-center items-center gap-2
+  }
+
+  .edit-btn {
+    @apply px-2 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 hover:cursor-pointer flex justify-center items-center gap-1
+  }
+
+  .delete-btn {
+    @apply px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 hover:cursor-pointer flex justify-center items-center gap-1
+  }
+
+  .section-content {
+    @apply flex flex-col items-center py-4 px-6
+  }
+}

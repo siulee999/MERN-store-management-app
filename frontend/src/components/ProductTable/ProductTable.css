@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components {
+  .td {
+  @apply p-4 border-b border-l border-gray-200 text-left
+}
+}
