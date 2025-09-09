@@ -1,5 +1,5 @@
 import ProductTableRow from "./ProductTableRow"
-import './productTable.css'
+import './ProductTable.css'
 
 export default function ProductTable({ productList, handleDelete, handleModalOpen }) {
   
