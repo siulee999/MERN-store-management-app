@@ -1,4 +1,4 @@
-import SectionHeader from "../components/sectionHeader/sectionHeader";
+import SectionHeader from "../components/SectionHeader/SectionHeader";
 import FaqCard from "../components/FaqCard/FaqCard";
 
 export default function FaqPage({faqList, search, handleModalOpen, handleDelete}) {

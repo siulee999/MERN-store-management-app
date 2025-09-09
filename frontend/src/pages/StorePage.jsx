@@ -1,4 +1,4 @@
-import SectionHeader from "../components/sectionHeader/sectionHeader";
+import SectionHeader from "../components/SectionHeader/SectionHeader";
 import StoreCard from "../components/StoreCard/StoreCard";
 
 export default function StorePage({ storeList, search, handleModalOpen, handleDelete }) {

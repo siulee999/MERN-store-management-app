@@ -1,4 +1,4 @@
-import SectionHeader from '../components/sectionHeader/sectionHeader.jsx'
+import SectionHeader from '../components/SectionHeader/SectionHeader.jsx'
 import ProductCard from '../components/ProductCard/ProductCard.jsx'
 import ProductTable from '../components/ProductTable/ProductTable.jsx'
 
