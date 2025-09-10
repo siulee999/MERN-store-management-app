@@ -19,7 +19,7 @@ export default function SectionHeader({ section, search, sectionName, onModalOpe
           onChange={(e) => {setSearchTerm(e.target.value)}}
           />
         <div className='absolute left-0 top-0 h-full p-2 text-gray-700'>
-          <IoSearch size={"100%"}/>
+          <IoSearch size={"1.5rem"}/>
         </div>
       </div>
 
