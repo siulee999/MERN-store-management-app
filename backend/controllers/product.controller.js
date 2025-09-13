@@ -23,14 +23,14 @@ export async function getProducts(req, res) {
         data = await Product.find({ $and: [
           { $or: queryConditions },
           { price: { $gte: lowerPrice, $lte: higherPrice}}
-        ]});
+        ]}).sort({ productId: -1});
 
       } else {
-        data = await Product.find({ $or: queryConditions });
+        data = await Product.find({ $or: queryConditions }).sort({ productId: -1});
       }
       
     } else {
-      data = await Product.find({});
+      data = await Product.find().sort({ productId: -1});
     }
 
     res.json(data);

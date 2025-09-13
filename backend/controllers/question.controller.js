@@ -16,10 +16,10 @@ export async function getQuestions(req, res) {
         { q_keywords: { $regex: q, $options: "i" }}
       ];
 
-      data = await Question.find({ $or: queryConditions });
+      data = await Question.find({ $or: queryConditions }).sort({ q_id: -1});
 
     } else {
-      data = await Question.find();
+      data = await Question.find().sort({ q_id: -1});
     }
 
     res.json(data);

@@ -14,7 +14,7 @@ export async function getShops(req, res) {
         { address: { $regex: q, $options: "i" }}
       ];
       
-      data = await Shop.find({ $or: queryConditions });
+      data = await Shop.find({ $or: queryConditions }).sort({ shopId: -1});
       return res.json(data);
     } 
 
@@ -26,7 +26,7 @@ export async function getShops(req, res) {
 
       if (!coord1.lat || !coord1.lon) return res.status(400).json({ message: "Invalid lat. and lon." });
 
-      const shops = await Shop.find();
+      const shops = await Shop.find().sort({ shopId: -1});
       const coord2 = {};
       const found = shops.filter(shop => {
         coord2.lat = shop.latitude;
@@ -39,7 +39,7 @@ export async function getShops(req, res) {
     }
     
 
-    data = await Shop.find();
+    data = await Shop.find().sort({ shopId: -1});
     res.json(data);
 
   } catch (err) {
