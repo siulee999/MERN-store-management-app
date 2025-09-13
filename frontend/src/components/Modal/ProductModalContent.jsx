@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-export default function ProductModalContent({ content, handleModalClose, handleSubmit }) {
+export default function ProductModalContent({ content, mode, onSubmit, handleModalClose }) {
   let product = { cate: "", productName: "", price: "", description: "" };
 
   if (content) {
@@ -24,7 +24,8 @@ export default function ProductModalContent({ content, handleModalClose, handleS
       description: descriptionInput.current.value
     };
 
-    handleSubmit(newData, currentId);
+    onSubmit(mode, newData, currentId);
+    handleModalClose();
   }
 
 

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-export default function FaqModalContent({ content, handleModalClose, handleSubmit }) {
+export default function FaqModalContent({ content, mode, handleModalClose, onSubmit }) {
   let faq = {q_question: "", q_answer: "", q_keywords: ""};
   if (content) {
     faq = {...content}
@@ -21,7 +21,8 @@ export default function FaqModalContent({ content, handleModalClose, handleSubmi
       q_keywords: keywordsInput.current.value
     };
 
-    handleSubmit(newData, currentId);
+    onSubmit(mode, newData, currentId); 
+    handleModalClose();
   }
 
 

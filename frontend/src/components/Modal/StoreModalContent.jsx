@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-export default function StoreModalContent({ content, handleModalClose, handleSubmit }) {
+export default function StoreModalContent({ content, mode, onSubmit, handleModalClose }) {
   let store = {shopName: "", address: "", openingHour: "", latitude: "", longitude: ""};
 
   if (content) {
@@ -26,7 +26,8 @@ export default function StoreModalContent({ content, handleModalClose, handleSub
       longitude: lonInput.current.value
     };
 
-    handleSubmit(newData, currentId);
+    onSubmit(mode, newData, currentId);
+    handleModalClose();
   }
 
 

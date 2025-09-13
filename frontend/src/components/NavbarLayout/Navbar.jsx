@@ -95,7 +95,7 @@ export default function Navbar() {
       </div>
 
       <NavLink to="/login" className="w-full" onClick={checkLoginState}>
-        <button className={auth.token ? "bg-red-900/70 hover:bg-red-900 login-logout-btn": "bg-green-900/70 hover:bg-green-900 login-logout-btn"}>
+        <button className={`rounded-lg w-full flex items-center pl-[33%] sm:pl-0 mb-3 hover:cursor-pointer overflow-hidden ${auth.token ? "bg-red-900/70 hover:bg-red-900": "bg-green-900/70 hover:bg-green-900" }`}>
           <div className="size-8 flex justify-center items-center m-2 text-gray-200 shrink-0">
             {
               auth.token ? <TbLogout2 /> : <TbLogin2 />

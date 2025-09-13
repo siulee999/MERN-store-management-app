@@ -1,7 +1,7 @@
 import DeleteButton from "../shared/DeleteButton";
 import EditButton from "../shared/EditButton";
 
-export default function ProductTableRow({item, handleDelete, onModalOpen }) {
+export default function ProductTableRow({item, handleProductDelete, onModalOpen }) {
   
   return (
     <tr className="hover:bg-gray-50">
@@ -13,7 +13,7 @@ export default function ProductTableRow({item, handleDelete, onModalOpen }) {
       <td className="td">
         <div className="flex flex-col gap-2">
           <EditButton onModalOpen={onModalOpen}/>
-          <DeleteButton onDelete={() => handleDelete("products", item._id)}/>          
+          <DeleteButton onDelete={() => handleProductDelete(item._id, item.productIdName)}/>          
         </div>
 
       </td>

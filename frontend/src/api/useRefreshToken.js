@@ -11,5 +11,5 @@ export default function useRefreshToken() {
     return response.data.accessToken;
   }
 
-  return refresh
+  return refresh;
 }

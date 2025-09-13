@@ -33,8 +33,4 @@
   li:has(.active-nav-link) {
     @apply bg-gray-600
   }
-
-  .login-logout-btn {
-    @apply w-full flex items-center pl-[33%] sm:pl-0 mb-3 bg-green-900/70 hover:bg-green-900 rounded-lg hover:cursor-pointer overflow-hidden
-  }
 }

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 
-export default function SectionHeader({ section, search, sectionName, onModalOpen}) {
+export default function SectionHeader({ onSearch, sectionName, onModalOpen}) {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    search(section, searchTerm);
+    onSearch(searchTerm);
   }, [searchTerm]);
 
   return (

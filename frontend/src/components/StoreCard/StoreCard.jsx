@@ -1,7 +1,7 @@
 import DeleteButton from "../shared/DeleteButton";
 import EditButton from "../shared/EditButton";
 
-export default function StoreCard({item, onModalOpen, handleDelete}) {
+export default function StoreCard({item, onModalOpen, handleStoreDelete}) {
   
   return (
     <div className="shadow-lg rounded-lg product-card overflow-x-auto hover:bg-gray-50">
@@ -18,7 +18,7 @@ export default function StoreCard({item, onModalOpen, handleDelete}) {
         </div>
         <div className="flex items-center gap-2 py-3 px-3">
           <EditButton onModalOpen={onModalOpen}/>
-          <DeleteButton onDelete={() => handleDelete("shops", item._id)}/>
+          <DeleteButton onDelete={() => handleStoreDelete(item._id, item.shopIdName)}/>
         </div>
       </div>
     </div>

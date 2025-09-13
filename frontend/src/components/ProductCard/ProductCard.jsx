@@ -1,7 +1,7 @@
 import DeleteButton from "../shared/DeleteButton";
 import EditButton from "../shared/EditButton";
 
-export default function ProductCard({item, onModalOpen, handleDelete}) {
+export default function ProductCard({item, onModalOpen, handleProductDelete}) {
   
   return (
     <div className="shadow-md rounded-lg product-card">
@@ -9,7 +9,7 @@ export default function ProductCard({item, onModalOpen, handleDelete}) {
         <span className="font-bold">{item.productIdName}</span>
         <div className="flex justify-center items-center gap-2">
           <EditButton onModalOpen={onModalOpen}/>
-          <DeleteButton onDelete={() => handleDelete("products", item._id)}/>
+          <DeleteButton onDelete={() => handleProductDelete(item._id, item.productIdName)}/>
         </div>
       </div>
 

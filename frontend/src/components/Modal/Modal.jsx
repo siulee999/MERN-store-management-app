@@ -2,8 +2,8 @@ import FaqModalContent from "./FaqModalContent";
 import ProductModalContent from "./ProductModalContent";
 import StoreModalContent from "./StoreModalContent";
 
-export default function Modal({modal, handleModalClose, handleSubmit}) {
-  const { section, mode, content } = modal;
+export default function Modal({modal, handleModalClose}) {
+  const { section, mode, content, onSubmit } = modal;
 
   return (
     <div className="fixed inset-0 z-[99] bg-black/30 flex flex-col justify-center items-center px-2">
@@ -14,9 +14,9 @@ export default function Modal({modal, handleModalClose, handleSubmit}) {
               section === "questions" && "FAQ"
           ))}</h2>
 
-        {section === "products" && <ProductModalContent content={content} handleModalClose={handleModalClose} handleSubmit={handleSubmit}/>}
-        {section === "shops" && <StoreModalContent content={content} handleModalClose={handleModalClose} handleSubmit={handleSubmit}/>}
-        {section === "questions" && <FaqModalContent content={content} handleModalClose={handleModalClose} handleSubmit={handleSubmit}/>}
+        {section === "products" && <ProductModalContent content={content} mode={mode} onSubmit={onSubmit} handleModalClose={handleModalClose} />}
+        {section === "shops" && <StoreModalContent content={content} mode={mode} onSubmit={onSubmit} handleModalClose={handleModalClose}/>}
+        {section === "questions" && <FaqModalContent content={content} mode={mode} onSubmit={onSubmit} handleModalClose={handleModalClose}/>}
       </div>
     </div>
   )

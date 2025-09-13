@@ -1,7 +1,7 @@
 import ProductTableRow from "./ProductTableRow"
 import './ProductTable.css'
 
-export default function ProductTable({ productList, handleDelete, handleModalOpen }) {
+export default function ProductTable({ productList, handleProductDelete, handleModalOpen, handleProductSubmit }) {
   
   return (
     <table className="border-collapse">
@@ -18,7 +18,7 @@ export default function ProductTable({ productList, handleDelete, handleModalOpe
       <tbody>
         {
           productList?.map((item) => (
-            <ProductTableRow item={item} key={crypto.randomUUID()} handleDelete={handleDelete} onModalOpen={() => handleModalOpen("products", "Edit", item)}/>
+            <ProductTableRow item={item} key={item._id} handleProductDelete={handleProductDelete} onModalOpen={() => handleModalOpen("products", "Edit", item, handleProductSubmit)}/>
           ))
         }
       </tbody>
