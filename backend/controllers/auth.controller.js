@@ -29,9 +29,8 @@ export async function handleLogin(req, res) {
 		res.cookie("jwt", refreshToken, {
 			httpOnly: true,
 			secure: true,
-			sameSite: "none",
+			sameSite: "strict",
 			maxAge:  4 * 60 * 60 * 1000, // 4 hrs expires
-			path: "/auth"
 		})
 
 		await User.updateOne({ username: foundUser.username }, { $set: { refreshToken } });
@@ -53,9 +52,8 @@ export async function handleLogout(req, res) {
 			res.clearCookie("jwt", {
 				httpOnly: true,
 				secure: true,
-				sameSite: "none",
+				sameSite: "strict",
 				maxAge: 4 * 60 * 60 * 1000, // 4hrs expires
-				path: "/auth"
 			});
 
 			await User.updateMany({ refreshToken },
@@ -88,7 +86,7 @@ export async function handleRefreshToken(req, res) {
 				return res.status(401).json({ message: "Failed to verify" });
 			}
 
-			if (decoded.username === foundUser.username && decoded.id === foundUser.userId) {
+			if (decoded.username === foundUser?.username && decoded.id === foundUser?.userId) {
 				const accessToken = jwt.sign(
 					{ "id": foundUser.userId, "username": foundUser.username },
 					process.env.ACCESS_TOKEN_KEY,
