@@ -22,7 +22,7 @@ export default function OverviewPage() {
         console.log(err);
       }
     }
-    
+
     fetchAll();
   }, []);
 
@@ -31,8 +31,8 @@ export default function OverviewPage() {
       <h3 className="text-2xl text-primary font-bold text-left py-4 px-6 shadow-2xs bg-white">Overview</h3>
       <div className="flex py-8 px-6 gap-6 flex-wrap justify-center sm:justify-start">
         <div className="flex justify-center items-center bg-white rounded-xl shadow-lg p-4 gap-3">
-          <div className="bg-blue-200 p-2 rounded-xl">
-            <RiGiftLine color="2563EB" size={40} />
+          <div className="bg-blue-200 p-2 rounded-xl text-blue-600">
+            <RiGiftLine size={40} />
           </div>
           <div className="flex flex-col w-15">
             <span className="text-3xl font-bold text-blue-600">{totals.products}</span>
@@ -41,8 +41,8 @@ export default function OverviewPage() {
         </div>
 
         <div className="flex justify-center items-center bg-white rounded-xl shadow-lg p-4 gap-3">
-          <div className="bg-purple-200 p-2 rounded-xl">
-            <MdOutlineStore color="805ad5" size={40} />
+          <div className="bg-purple-200 p-2 rounded-xl text-purple-600">
+            <MdOutlineStore size={40} />
           </div>
           <div className="flex flex-col w-15">
             <span className="text-3xl font-bold text-purple-600">{totals.stores}</span>
@@ -51,8 +51,8 @@ export default function OverviewPage() {
         </div>
 
         <div className="flex justify-center items-center bg-white rounded-xl shadow-lg p-4 gap-3">
-          <div className="bg-green-200 p-2 rounded-xl">
-            <RiQuestionAnswerLine color="38a169" size={40} />
+          <div className="bg-green-200 p-2 rounded-xl text-green-600">
+            <RiQuestionAnswerLine size={40} />
           </div>
           <div className="flex flex-col w-15">
             <span className="text-3xl font-bold text-green-600">{totals.faqs}</span>
