@@ -4,7 +4,8 @@ import ProductTable from '../components/ProductTable/ProductTable.jsx'
 import { useState } from "react";
 import useApi from "../api/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
-import { PulseLoader } from "react-spinners";
+import ProductCardSkeleton from '../components/Skeletons/ProductCardSkeleton.jsx';
+import ProductTableSkeleton from '../components/Skeletons/ProductTableSkeleton.jsx';
 
 export default function ProductPage({ handleModalOpen }) {
   const api = useApi();
@@ -87,7 +88,12 @@ export default function ProductPage({ handleModalOpen }) {
       }
       {
         isLoading
-          ? <div className="mt-10"><PulseLoader size={10} /></div>
+          ? (
+            <>
+              <div className="sm:hidden flex flex-col gap-6 w-full"><ProductCardSkeleton number={3}/></div>
+              <div className='hidden sm:block bg-white rounded-lg shadow-lg overflow-x-auto w-full'><ProductTableSkeleton rowNumber={3}/></div>
+            </>
+          )
           : (
             <>
               <div className='sm:hidden flex flex-col gap-6 w-full'>

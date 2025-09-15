@@ -3,7 +3,7 @@ import StoreCard from "../components/StoreCard/StoreCard";
 import { useState } from "react";
 import useApi from "../api/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
-import { PulseLoader } from "react-spinners";
+import StoreCardSkeleton from "../components/Skeletons/StoreCardSkeleton";
 
 export default function StorePage({ handleModalOpen }) {
   const api = useApi();
@@ -67,6 +67,7 @@ export default function StorePage({ handleModalOpen }) {
       setIsLoading(true);
 
       const result = await api.searchData("shops", keyword);
+
       setStoreList(result);
 
     } catch (err) {
@@ -86,7 +87,7 @@ export default function StorePage({ handleModalOpen }) {
       }
       {
         isLoading
-          ? <div className="mt-10"><PulseLoader size={10} /></div>
+          ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full"><StoreCardSkeleton number={6}/></div>
           : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {

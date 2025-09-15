@@ -4,7 +4,7 @@ import EditButton from "../shared/EditButton";
 export default function StoreCard({item, onModalOpen, handleStoreDelete}) {
   
   return (
-    <div className="shadow-lg rounded-lg product-card overflow-x-auto hover:bg-gray-50">
+    <div className="shadow-lg rounded-lg overflow-x-auto hover:bg-gray-50">
       <div className="flex flex-col justify-between h-full">
         <div>        
           <p className="text-lg font-bold text-white bg-primary w-full py-2 px-3">{item.shopIdName}</p>

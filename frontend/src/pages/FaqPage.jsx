@@ -3,7 +3,7 @@ import FaqCard from "../components/FaqCard/FaqCard";
 import { useState } from "react";
 import useApi from "../api/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
-import { PulseLoader } from "react-spinners";
+import FaqCardSkeleton from "../components/Skeletons/FaqCardSkeleton";
 
 export default function FaqPage({ handleModalOpen }) {
   const api = useApi();
@@ -86,7 +86,7 @@ export default function FaqPage({ handleModalOpen }) {
       }
       {
         isLoading
-          ? <div className="mt-10"><PulseLoader size={10} /></div>
+          ? <div className="flex flex-col gap-6 w-full"><FaqCardSkeleton number={3} /></div>
           : (
             <div className="flex flex-col gap-6 w-full">
               {
