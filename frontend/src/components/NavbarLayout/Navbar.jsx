@@ -8,6 +8,7 @@ import { MdOutlineStore, MdStore } from "react-icons/md";
 import { RiQuestionAnswerLine, RiQuestionAnswerFill } from "react-icons/ri";
 import { RiGiftLine, RiGiftFill } from "react-icons/ri";
 import { TbLogin2, TbLogout2 } from "react-icons/tb";
+import { MdSpaceDashboard, MdOutlineSpaceDashboard } from "react-icons/md";
 
 
 export default function Navbar() {
@@ -36,7 +37,7 @@ export default function Navbar() {
 
   return (
     <>
-    <nav className={`w-full sm:h-dvh ${isNavbarOpened ? "h-75 sm:w-60" : "h-12 sm:w-16"} overflow-hidden transition-[height,width] duration-300 ease-in-out`}>
+    <nav className={`w-full sm:h-dvh ${isNavbarOpened ? "h-85 sm:w-60" : "h-12 sm:w-16"} overflow-hidden transition-[height,width] duration-300 ease-in-out`}>
       <div>
         <div className="flex items-center m-2 sm:py-2 sm:border-b-1 sm:border-gray-400 overflow-hidden">
           <div className="toggle-nav-btn shrink-0"
@@ -47,6 +48,21 @@ export default function Navbar() {
         </div>
 
         <ul className="flex flex-col gap-1">
+          <li className="rounded-xl overflow-hidden">
+            <NavLink to="/overview" className={({isActive}) => isActive ? "nav-link active-nav-link" : "nav-link"}>
+              {
+                ({isActive}) => (
+                  <>
+                    <div className="size-8 flex justify-center items-center m-2 text-gray-100 shrink-0">
+                      {isActive ? <MdSpaceDashboard /> : <MdOutlineSpaceDashboard />}
+                    </div>
+                    <span>Overview</span>
+                  </>
+                )
+              }
+            </NavLink>          
+          </li>
+
           <li className="rounded-xl overflow-hidden">
             <NavLink to="/products" className={({isActive}) => isActive ? "nav-link active-nav-link" : "nav-link"}>
               {

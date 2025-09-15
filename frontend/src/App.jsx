@@ -8,6 +8,7 @@ import ProductPage from "./pages/ProductPage"
 import StorePage from "./pages/StorePage"
 import FaqPage from "./pages/FaqPage"
 import LoginPage from "./pages/LoginPage"
+import OverviewPage from "./pages/OverviewPage"
 import NavbarLayout from "./components/NavbarLayout/NavbarLayout"
 import Modal from "./components/Modal/Modal"
 
@@ -24,7 +25,6 @@ function App() {
 
 
   function handleModalOpen(section, mode, content = null, onSubmit) {
-
     if (auth.token) {
       setModal({ section, mode, content, onSubmit });
       SetIsModalOpened(true);
@@ -60,10 +60,11 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
 
         <Route element={<NavbarLayout />}>
+          <Route path="/overview" element={<OverviewPage />} />
           <Route path="/products" element={<ProductPage handleModalOpen={handleModalOpen} />} />
           <Route path="/stores" element={<StorePage handleModalOpen={handleModalOpen} />} />
           <Route path="/faqs" element={<FaqPage handleModalOpen={handleModalOpen} />} />
-          <Route path="*" element={<Navigate to="/products" replace />} />
+          <Route path="*" element={<Navigate to="/overview" replace />} />
         </Route>
       </Routes>
 
