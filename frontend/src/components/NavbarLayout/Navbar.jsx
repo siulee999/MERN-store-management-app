@@ -4,8 +4,8 @@ import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 
 import { RxHamburgerMenu } from "react-icons/rx";
-import { MdOutlineStore, MdStore } from "react-icons/md";
-import { RiQuestionAnswerLine, RiQuestionAnswerFill } from "react-icons/ri";
+// import { MdOutlineStore, MdStore } from "react-icons/md";
+import { RiQuestionAnswerLine, RiQuestionAnswerFill, RiStore3Line, RiStore3Fill } from "react-icons/ri";
 import { RiGiftLine, RiGiftFill } from "react-icons/ri";
 import { TbLogin2, TbLogout2 } from "react-icons/tb";
 import { MdSpaceDashboard, MdOutlineSpaceDashboard } from "react-icons/md";
@@ -84,7 +84,7 @@ export default function Navbar() {
                 ({isActive}) => (
                   <>
                     <div className="size-8 flex justify-center items-center m-2 text-gray-100 shrink-0">
-                      {isActive ? <MdStore /> : <MdOutlineStore/>}
+                      {isActive ? <RiStore3Fill /> : <RiStore3Line />}
                     </div>
                     <span>Stores</span>
                   </>

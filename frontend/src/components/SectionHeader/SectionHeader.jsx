@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 
-export default function SectionHeader({ onSearch, sectionName, onModalOpen}) {
+export default function SectionHeader({ onSearch, sectionName, onModalOpen }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -9,8 +9,8 @@ export default function SectionHeader({ onSearch, sectionName, onModalOpen}) {
   }, [searchTerm]);
 
   return (
-    <div className='flex justify-between items-center mb-4 w-full h-10'>
-      <h3 className='text-2xl text-primary font-bold'>{sectionName}</h3>
+    <header className='flex justify-between items-center mb-4 w-full h-10'>
+      <h1 className='text-2xl text-primary font-bold'>{sectionName}</h1>
 
       <div className='flex-grow min-w-0 max-w-100 h-full mx-3 relative'>
         <input 
@@ -27,6 +27,6 @@ export default function SectionHeader({ onSearch, sectionName, onModalOpen}) {
         <span className='text-2xl mb-1'>+</span>
         <span className='hidden sm:block'>Add</span>
       </button>
-    </div>
+    </header>
   )
 }

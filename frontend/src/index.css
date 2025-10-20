@@ -1,10 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
 @theme {
   --color-primary: #1F2937;
+  --font-roboto: "Roboto", "sans-serif";
 }
 
 @layer base {
+  html {
+    @apply font-roboto
+  }
+
   body {
     @apply w-dvw h-dvh min-w-[300px]
   }
@@ -29,5 +35,9 @@
 
   .section-content {
     @apply flex flex-col items-center py-4 px-6
+  }
+
+  .dashboard-card {
+    @apply flex justify-center items-center bg-white rounded-xl shadow-lg p-2
   }
 }

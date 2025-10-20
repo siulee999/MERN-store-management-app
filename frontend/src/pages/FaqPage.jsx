@@ -1,8 +1,8 @@
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import useApi from "../api/useApi";
 import SectionHeader from "../components/SectionHeader/SectionHeader";
 import FaqCard from "../components/FaqCard/FaqCard";
-import { useState } from "react";
-import useApi from "../api/useApi";
-import { useLocation, useNavigate } from "react-router-dom";
 import FaqCardSkeleton from "../components/Skeletons/FaqCardSkeleton";
 
 export default function FaqPage({ handleModalOpen }) {
@@ -79,7 +79,7 @@ export default function FaqPage({ handleModalOpen }) {
   }
 
   return (
-    <div className="section-content">
+    <main className="section-content">
       <SectionHeader sectionName={"FAQs"} section={"questions"} onSearch={handleFaqSearch} onModalOpen={() => handleModalOpen("questions", "Add", null, handleFaqSubmit)} />
       {
         errorMsg && <p className="text-red-700">{errorMsg}</p>
@@ -97,6 +97,6 @@ export default function FaqPage({ handleModalOpen }) {
             </div>
           )
       }
-    </div>
+    </main>
   )
 }

@@ -13,7 +13,7 @@ import NavbarLayout from "./components/NavbarLayout/NavbarLayout"
 import Modal from "./components/Modal/Modal"
 
 
-function App() {
+export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,7 +24,7 @@ function App() {
   const [modal, setModal] = useState({ section: null, mode: null, content: null, onSubmit: null });
 
 
-  function handleModalOpen(section, mode, content = null, onSubmit) {
+  const handleModalOpen = (section, mode, content = null, onSubmit) => {
     if (auth.token) {
       setModal({ section, mode, content, onSubmit });
       SetIsModalOpened(true);
@@ -34,13 +34,13 @@ function App() {
     }
   }
 
-  function handleModalClose() {
+  const handleModalClose = () => {
     SetIsModalOpened(false);
     setModal({ section: null, mode: null, content: null, onSubmit: null });
   }
 
   useEffect(() => {
-    async function persistLogin() {
+    const persistLogin = async () => {
       try {
         const token = await refresh();
         if (token) {
@@ -73,5 +73,3 @@ function App() {
 
   )
 }
-
-export default App

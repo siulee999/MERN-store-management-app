@@ -71,7 +71,7 @@ const StoreSalesBarChart = ({ className }) => {
   };
 
   return (
-    <div className={`dashboard-card relative ${className}`}>
+    <div className={`dashboard-card relative h-[600px] lg:h-full ${className}`}>
       <Chart data={data} options={options} />
     </div>
   )

@@ -1,6 +1,5 @@
 import { Line } from "react-chartjs-2";
 import { weeklySalesData } from "../../data/mockDashboardData";
-import { formatValue } from "../../utils/formatValue";
 
 const WeeklySalesLineChart = ({ className }) => {
   const data = {
@@ -22,7 +21,7 @@ const WeeklySalesLineChart = ({ className }) => {
       },
       title: {
         display: true,
-        text: 'Sales Growth',
+        text: 'Weekly Sales Growth',
         font: { size: 18 }
       },
       tooltip: {
@@ -43,7 +42,7 @@ const WeeklySalesLineChart = ({ className }) => {
       y: {
         ticks: {
           callback: (value) => {
-            return formatValue(value, "currency");
+            return `$${(value/ 1000000).toFixed(1)}M`
           }
         }
       },
@@ -60,7 +59,7 @@ const WeeklySalesLineChart = ({ className }) => {
   };
 
   return (
-    <div className={`dashboard-card relative h-full ${className}`} >
+    <div className={`dashboard-card relative h-[250px] lg:h-full ${className}`} >
       <Line data={data} options={options} />
     </div >
   )
