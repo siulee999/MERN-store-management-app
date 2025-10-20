@@ -1,65 +1,16 @@
-import { useEffect, useState } from "react";
-import { MdOutlineStore } from "react-icons/md";
-import { RiGiftLine } from "react-icons/ri";
-import { RiQuestionAnswerLine } from "react-icons/ri";
-import useApi from "../api/useApi";
+import { PrimarySection, SummarySection, WeeklySalesLineChart, StoreSalesBarChart, CategoryDoughnutChart,  } from "../components/dashboard";
 
 export default function OverviewPage() {
-  const api = useApi();
-  const [totals, setTotals] = useState({products: 0, stores: 0, faqs: 0});
-
-  useEffect(() => {
-    async function fetchAll() {
-      try {
-        const [products, stores, faqs] = await Promise.all([
-          api.fetchData("products"),
-          api.fetchData("shops"),
-          api.fetchData("questions")
-        ]);
-
-        setTotals({products: products.length, stores: stores.length, faqs: faqs.length});
-      } catch(err) {
-        console.log(err);
-      }
-    }
-
-    fetchAll();
-  }, []);
-
   return (
-    <div className="bg-slate-200 h-dvh">
-      <h3 className="text-2xl text-primary font-bold text-left py-4 px-6 shadow-2xs bg-white">Overview</h3>
-      <div className="flex py-8 px-6 gap-6 flex-wrap justify-center sm:justify-start">
-        <div className="flex justify-center items-center bg-white rounded-xl shadow-lg p-4 gap-3">
-          <div className="bg-blue-200 p-2 rounded-xl text-blue-600">
-            <RiGiftLine size={40} />
-          </div>
-          <div className="flex flex-col w-15">
-            <span className="text-3xl font-bold text-blue-600">{totals.products}</span>
-            <span className="text-xs">Products</span>
-          </div>
-        </div>
-
-        <div className="flex justify-center items-center bg-white rounded-xl shadow-lg p-4 gap-3">
-          <div className="bg-purple-200 p-2 rounded-xl text-purple-600">
-            <MdOutlineStore size={40} />
-          </div>
-          <div className="flex flex-col w-15">
-            <span className="text-3xl font-bold text-purple-600">{totals.stores}</span>
-            <span className="text-xs">Stores</span>
-          </div>
-        </div>
-
-        <div className="flex justify-center items-center bg-white rounded-xl shadow-lg p-4 gap-3">
-          <div className="bg-green-200 p-2 rounded-xl text-green-600">
-            <RiQuestionAnswerLine size={40} />
-          </div>
-          <div className="flex flex-col w-15">
-            <span className="text-3xl font-bold text-green-600">{totals.faqs}</span>
-            <span className="text-xs">FAQs</span>
-          </div>
-        </div>
+    <main className="bg-slate-200 xl:h-dvh xl:grid xl:grid-rows-[60px_1fr] min-w-[330px] min-h-[800px] overflow-y-scroll">
+      <h1 className="text-2xl text-primary font-bold text-left py-4 px-6 shadow-2xs bg-white">Overview</h1>
+      <div className="py-8 px-6 gap-6 flex flex-col lg:grid lg:grid-cols-4 lg:grid-rows-[repeat(9,120px)] xl:grid-cols-6 xl:grid-rows-5">
+        <PrimarySection className="lg:col-span-4 lg:row-span-1" />
+        <StoreSalesBarChart className="lg:col-span-4 lg:row-span-4 xl:col-span-2 xl:row-span-5 order-1 xl:order-0" />
+        <SummarySection className="lg:col-span-1 lg:row-span-4" />
+        <WeeklySalesLineChart className="lg:col-span-3 lg:row-span-2" />
+        <CategoryDoughnutChart className="lg:col-span-3 lg:row-span-2" />
       </div>
-    </div>
+    </main>
   )
 }
