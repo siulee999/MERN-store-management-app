@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useLocation, useNavigate, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useApi from "../api/useApi";
@@ -12,9 +12,12 @@ export default function LoginPage() {
   const from = location?.state?.from?.pathname || "/";
 
   const { setAuth } = useAuth();
-  const [loginInfo, setLoginInfo] = useState({ username: "", password: "" });
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const usernameRef = useRef();
+  const passwordRef = useRef();
+
+  const [loginError, setLoginError] = useState("");
+  const [otherError, setOtherError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLoginSubmit = async (e) => {
@@ -22,7 +25,7 @@ export default function LoginPage() {
     try {
       setIsLoading(true);
 
-      const token = await api.login(loginInfo);
+      const token = await api.login({username: usernameRef.current.value, password: passwordRef.current.value});
       setAuth({ token });
       navigate(from);
 
@@ -31,15 +34,13 @@ export default function LoginPage() {
       const errMessage = err.response?.data?.message;
 
       if (status === 401 && errMessage === "Invalid password") {
-        setLoginInfo({ ...loginInfo, password: "" });
-        setErrorMessage(errMessage);
+        setLoginError(errMessage);
 
       } else if (status === 401) {
-        setLoginInfo({ username: "", password: "" });
-        setErrorMessage(errMessage);
+        setLoginError(errMessage);
 
       } else {
-        setErrorMessage("Internal Server Error");
+        setOtherError("Internal Server Error");
       }
     } finally {
       setIsLoading(false);
@@ -50,8 +51,8 @@ export default function LoginPage() {
     return <div className="font-bold m-2">Loading...Please wait.</div>
   }
 
-  if (errorMessage) {
-    return <div className="font-bold m-2">{errorMessage}. Please try again later.</div>
+  if (otherError) {
+    return <div className="font-bold m-2">{otherError}. Please try again later.</div>
   }
 
   return (
@@ -61,7 +62,7 @@ export default function LoginPage() {
           <h2 className="text-center text-3xl font-bold mb-5">
             Log In for Data Mutation
           </h2>
-          {errorMessage && <p className="text-red-800 pb-1">{errorMessage}</p>}
+          {loginError && <p className="text-red-800 pb-1">{loginError}</p>}
           <div>
             <form className="space-y-6" onSubmit={handleLoginSubmit}>
               <div className="text-lg flex flex-col gap-3">
@@ -69,10 +70,9 @@ export default function LoginPage() {
                   <p className="font-medium pb-1">Username</p>
                   <input
                     type="text"
-                    required
+                    ref={usernameRef}
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-gray-700 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 text-base focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
-                    value={loginInfo.username}
-                    onChange={(e) => setLoginInfo(prev => ({ ...prev, username: e.target.value }))}
+                    required
                   />
                 </label>
 
@@ -80,11 +80,10 @@ export default function LoginPage() {
                   <p className="font-medium pb-1">Password</p>
                   <input
                     type="password"
+                    ref={passwordRef}
                     autoComplete="current-password"
-                    required
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-gray-700 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 text-base focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
-                    value={loginInfo.password}
-                    onChange={(e) => setLoginInfo(prev => ({ ...prev, password: e.target.value }))}
+                    required
                   />
                 </label>
               </div>
