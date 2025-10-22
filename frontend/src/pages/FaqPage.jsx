@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useApi from "../api/useApi";
 import SectionHeader from "../components/shared/SectionHeader/SectionHeader";
 import FaqCard from "../components/faqPage/FaqCard/FaqCard";
@@ -10,70 +11,69 @@ export default function FaqPage({ handleModalOpen }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [faqList, setFaqList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleFaqSubmit = async (mode, newData, id) => {
-    try {
-      setIsLoading(true);
-      if (mode === "Add") {
-        const created = await api.createData("questions", newData);
-        setFaqList((prev) => [created, ...prev]);
+  const {
+    data: faqList,
+    isLoading,
+    error
+  } = useQuery({
+    queryKey: ["faqs"],
+    queryFn: () => api.fetchData("questions"),
+    staleTime: 1000 * 60 * 5
+  });
 
-      } else if (mode === "Edit" && id) {
-        const updated = await api.updateData("questions", id, newData);
-        setFaqList((prev) => prev.map(item => item._id === id ? updated : item));
-      }
+  const filteredFaqList = searchTerm
+    ? faqList.filter(q => q.q_id_name.toLowerCase().includes(searchTerm) || q.q_keywords.toLowerCase().includes(searchTerm) || q.q_question.toLowerCase().includes(searchTerm) || q.q_answer.toLowerCase().includes(searchTerm))
+    : faqList;
 
-    } catch (err) {
-      if (err.response?.status === 401) {
-        alert("You have logged out. Please login again.");
-        navigate("/login", { state: { from: location } });
-      } else {
-        setErrorMsg(err.message);
-        console.log(err);
-      }
-    } finally {
-      setIsLoading(false);
+  const queryClient = useQueryClient();
+
+  const mutationError = (err) => {
+    if (err.response?.status === 401) {
+      alert("You have logged out. Please login again.");
+      navigate("/login", { state: { from: location } });
+    } else {
+      alert(err.message);
+    }
+  };
+
+  const addFaqMutation = useMutation({
+    mutationFn: ({ newData }) => api.createData("questions", newData),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["faqs"]);
+    },
+    onError: mutationError
+  });
+
+  const updateFaqMutation = useMutation({
+    mutationFn: ({ newData, id }) => api.updateData("questions", newData, id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["faqs"]);
+    },
+    onError: mutationError
+  });
+
+  const deleteFaqMutation = useMutation({
+    mutationFn: ({ id }) => api.deleteData("questions", id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["faqs"]);
+      alert("Item deleted successfully.");
+    },
+    onError: mutationError
+  })
+
+  const handleFaqSubmit = (mode, newData, id) => {
+    if (mode === "Add") {
+      addFaqMutation.mutate({ newData });
+    } else if (mode === "Edit" && id) {
+      updateFaqMutation.mutate({ newData, id });
     }
   }
 
-  const handleFaqDelete = async (id, idName) => {
-    try {
-      setIsLoading(true);
-
-      if (confirm(`Are you sure to delete FAQ ${idName}?`)) {
-        await api.deleteData("questions", id);
-        setFaqList((prev) => prev.filter(item => item._id != id))
-        alert("Item deleted successfully.");
-      }
-    } catch (err) {
-      if (err.response?.status === 401) {
-        alert("You have logged out. Please login again.");
-        navigate("/login", { state: { from: location } });
-      } else {
-        setErrorMsg(err.message);
-        console.log(err);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  const handleFaqSearch = async (keyword) => {
-    try {
-      setIsLoading(true);
-
-      const result = await api.searchData("questions", keyword);
-      setFaqList(result);
-
-    } catch (err) {
-      setErrorMsg(err.message);
-      console.log(err);
-
-    } finally {
-      setIsLoading(false);
+  const handleFaqDelete = (id, idName) => {
+    if (confirm(`Are you sure to delete Faq ${idName}?`)) {
+      deleteFaqMutation.mutate({ id });
     }
   }
 
@@ -82,15 +82,16 @@ export default function FaqPage({ handleModalOpen }) {
       <SectionHeader
         sectionName={"FAQs"}
         section={"questions"}
-        onSearch={handleFaqSearch}
+        searchTerm={searchTerm}
+        onSearch={keyword => setSearchTerm(keyword)}
         onModalOpen={() => handleModalOpen("questions", "Add", null, handleFaqSubmit)}
       />
-      {errorMsg && <p className="text-red-700">{errorMsg}</p>}
+      {error && <p className="text-red-700">{error.message}</p>}
       {isLoading
         ? <div className="flex flex-col gap-6 w-full"><FaqCardSkeleton number={3} /></div>
         : (
           <div className="flex flex-col gap-6 w-full">
-            {faqList?.length > 0 && faqList.map((item) => (
+            {filteredFaqList?.length > 0 && filteredFaqList.map((item) => (
               <FaqCard
                 key={item._id}
                 item={item}

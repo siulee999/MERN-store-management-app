@@ -74,7 +74,7 @@ export default function StorePage({ handleModalOpen }) {
   }
 
   const handleStoreDelete = (id, idName) => {
-    if (confirm(confirm(`Are you sure to delete Store ${idName}?`))) {
+    if (confirm(`Are you sure to delete Store ${idName}?`)) {
       deleteStoreMutation.mutate({ id });
     }
   }
