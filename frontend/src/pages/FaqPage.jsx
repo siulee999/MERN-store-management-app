@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useApi from "../api/useApi";
-import SectionHeader from "../components/SectionHeader/SectionHeader";
-import FaqCard from "../components/FaqCard/FaqCard";
-import FaqCardSkeleton from "../components/Skeletons/FaqCardSkeleton";
+import SectionHeader from "../components/shared/SectionHeader/SectionHeader";
+import FaqCard from "../components/faqPage/FaqCard/FaqCard";
+import FaqCardSkeleton from "../components/skeletons/FaqCardSkeleton";
 
 export default function FaqPage({ handleModalOpen }) {
   const api = useApi();
@@ -11,11 +11,10 @@ export default function FaqPage({ handleModalOpen }) {
   const location = useLocation();
 
   const [faqList, setFaqList] = useState([]);
-
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  async function handleFaqSubmit(mode, newData, id) {
+  const handleFaqSubmit = async (mode, newData, id) => {
     try {
       setIsLoading(true);
       if (mode === "Add") {
@@ -40,7 +39,7 @@ export default function FaqPage({ handleModalOpen }) {
     }
   }
 
-  async function handleFaqDelete(id, idName) {
+  const handleFaqDelete = async (id, idName) => {
     try {
       setIsLoading(true);
 
@@ -62,7 +61,7 @@ export default function FaqPage({ handleModalOpen }) {
     }
   }
 
-  async function handleFaqSearch(keyword) {
+  const handleFaqSearch = async (keyword) => {
     try {
       setIsLoading(true);
 
@@ -80,22 +79,27 @@ export default function FaqPage({ handleModalOpen }) {
 
   return (
     <main className="section-content">
-      <SectionHeader sectionName={"FAQs"} section={"questions"} onSearch={handleFaqSearch} onModalOpen={() => handleModalOpen("questions", "Add", null, handleFaqSubmit)} />
-      {
-        errorMsg && <p className="text-red-700">{errorMsg}</p>
-      }
-      {
-        isLoading
-          ? <div className="flex flex-col gap-6 w-full"><FaqCardSkeleton number={3} /></div>
-          : (
-            <div className="flex flex-col gap-6 w-full">
-              {
-                faqList?.map((item) => (
-                  <FaqCard key={item._id} item={item} onModalOpen={() => handleModalOpen("questions", "Edit", item, handleFaqSubmit)} handleFaqDelete={handleFaqDelete} />
-                ))
-              }
-            </div>
-          )
+      <SectionHeader
+        sectionName={"FAQs"}
+        section={"questions"}
+        onSearch={handleFaqSearch}
+        onModalOpen={() => handleModalOpen("questions", "Add", null, handleFaqSubmit)}
+      />
+      {errorMsg && <p className="text-red-700">{errorMsg}</p>}
+      {isLoading
+        ? <div className="flex flex-col gap-6 w-full"><FaqCardSkeleton number={3} /></div>
+        : (
+          <div className="flex flex-col gap-6 w-full">
+            {faqList?.length > 0 && faqList.map((item) => (
+              <FaqCard
+                key={item._id}
+                item={item}
+                onModalOpen={() => handleModalOpen("questions", "Edit", item, handleFaqSubmit)}
+                handleFaqDelete={handleFaqDelete}
+              />))
+            }
+          </div>
+        )
       }
     </main>
   )

@@ -10,7 +10,7 @@ import productRoute from "./routes/product.route.js";
 import shopRoute from "./routes/shop.route.js";
 import questionRoute from "./routes/question.route.js";
 
-import { checkJSONBody } from "./middlewares/checkJSONBody.js"
+import { checkJSONBody } from "./middlewares/checkJSONBody.js";
 
 
 // 應用程式設定

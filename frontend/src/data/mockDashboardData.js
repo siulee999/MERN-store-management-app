@@ -2,7 +2,6 @@ import { RiGiftLine, RiShipLine, RiStore3Line, RiUserSmileLine } from 'react-ico
 import { FiUsers } from "react-icons/fi";
 import { TbInvoice } from "react-icons/tb";
 
-
 const totalRevenueData = [
   {
     id: "yesterday",

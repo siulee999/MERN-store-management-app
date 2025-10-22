@@ -1,9 +1,9 @@
-import SectionHeader from "../components/SectionHeader/SectionHeader";
-import StoreCard from "../components/StoreCard/StoreCard";
 import { useState } from "react";
-import useApi from "../api/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
-import StoreCardSkeleton from "../components/Skeletons/StoreCardSkeleton";
+import useApi from "../api/useApi";
+import SectionHeader from "../components/shared/SectionHeader/SectionHeader.jsx";
+import StoreCard from "../components/storePage/StoreCard/StoreCard.jsx";
+import StoreCardSkeleton from "../components/skeletons/StoreCardSkeleton.jsx";
 
 export default function StorePage({ handleModalOpen }) {
   const api = useApi();
@@ -11,11 +11,10 @@ export default function StorePage({ handleModalOpen }) {
   const location = useLocation();
 
   const [storeList, setStoreList] = useState([]);
-
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  async function handleStoreSubmit(mode, newData, id) {
+  const handleStoreSubmit = async (mode, newData, id) => {
     try {
       setIsLoading(true);
       if (mode === "Add") {
@@ -40,7 +39,7 @@ export default function StorePage({ handleModalOpen }) {
     }
   }
 
-  async function handleStoreDelete(id, idName) {
+  const handleStoreDelete = async (id, idName) => {
     try {
       setIsLoading(true);
 
@@ -62,12 +61,11 @@ export default function StorePage({ handleModalOpen }) {
     }
   }
 
-  async function handleStoreSearch(keyword) {
+  const handleStoreSearch = async (keyword) => {
     try {
       setIsLoading(true);
 
       const result = await api.searchData("shops", keyword);
-
       setStoreList(result);
 
     } catch (err) {
@@ -80,24 +78,32 @@ export default function StorePage({ handleModalOpen }) {
   }
 
   return (
-    <div className="section-content">
-      <SectionHeader sectionName={"Stores"} section={"shops"} onSearch={handleStoreSearch} onModalOpen={() => handleModalOpen("shops", "Add", null, handleStoreSubmit)} />
-      {
-        errorMsg && <p className="text-red-700">{errorMsg}</p>
+    <main className="section-content">
+      <SectionHeader
+        sectionName={"Stores"}
+        section={"shops"}
+        onSearch={handleStoreSearch}
+        onModalOpen={() => handleModalOpen("shops", "Add", null, handleStoreSubmit)}
+      />
+      {errorMsg && <p className="text-red-700">{errorMsg}</p>}
+      {isLoading
+        ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+            <StoreCardSkeleton number={6} />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {storeList?.length > 0 && storeList.map((item) => (
+              <StoreCard
+                key={item._id}
+                item={item}
+                onModalOpen={() => handleModalOpen("shops", "Edit", item, handleStoreSubmit)}
+                handleStoreDelete={handleStoreDelete}
+              />))
+            }
+          </div>
+        )
       }
-      {
-        isLoading
-          ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full"><StoreCardSkeleton number={6}/></div>
-          : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {
-                storeList?.map((item) => (
-                  <StoreCard key={item._id} item={item} onModalOpen={() => handleModalOpen("shops", "Edit", item, handleStoreSubmit)} handleStoreDelete={handleStoreDelete} />
-                ))
-              }
-            </div>
-          )
-      }
-    </div>
+    </main>
   )
 }

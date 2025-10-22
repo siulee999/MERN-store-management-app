@@ -2,7 +2,6 @@ import ProductTableRow from "./ProductTableRow"
 import './ProductTable.css'
 
 export default function ProductTable({ productList, handleProductDelete, handleModalOpen, handleProductSubmit }) {
-  
   return (
     <table className="border-collapse">
       <thead className='bg-primary'>
@@ -16,10 +15,8 @@ export default function ProductTable({ productList, handleProductDelete, handleM
         </tr>
       </thead>
       <tbody>
-        {
-          productList?.map((item) => (
-            <ProductTableRow item={item} key={item._id} handleProductDelete={handleProductDelete} onModalOpen={() => handleModalOpen("products", "Edit", item, handleProductSubmit)}/>
-          ))
+        {productList?.map((item) => (
+          <ProductTableRow item={item} key={item._id} handleProductDelete={handleProductDelete} onModalOpen={() => handleModalOpen("products", "Edit", item, handleProductSubmit)} />))
         }
       </tbody>
     </table>

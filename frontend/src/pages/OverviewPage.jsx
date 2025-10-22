@@ -1,4 +1,4 @@
-import { PrimarySection, SummarySection, WeeklySalesLineChart, StoreSalesBarChart, CategoryDoughnutChart,  } from "../components/dashboard";
+import { PrimarySection, SummarySection, WeeklySalesLineChart, StoreSalesBarChart, CategoryDoughnutChart,  } from "../components/overviewPage";
 
 export default function OverviewPage() {
   return (

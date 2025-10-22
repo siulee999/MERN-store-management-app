@@ -1,8 +1,7 @@
-import DeleteButton from "../shared/DeleteButton";
-import EditButton from "../shared/EditButton";
+import DeleteButton from "../../shared/DeleteButton";
+import EditButton from "../../shared/EditButton";
 
-export default function ProductTableRow({item, handleProductDelete, onModalOpen }) {
-  
+export default function ProductTableRow({ item, handleProductDelete, onModalOpen }) {
   return (
     <tr className="hover:bg-gray-50">
       <td className="td">{item.productIdName}</td>
@@ -15,7 +14,6 @@ export default function ProductTableRow({item, handleProductDelete, onModalOpen 
           <EditButton onModalOpen={onModalOpen}/>
           <DeleteButton onDelete={() => handleProductDelete(item._id, item.productIdName)}/>          
         </div>
-
       </td>
     </tr>
   )

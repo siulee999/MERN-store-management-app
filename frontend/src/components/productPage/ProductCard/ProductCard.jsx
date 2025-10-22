@@ -1,8 +1,7 @@
-import DeleteButton from "../shared/DeleteButton";
-import EditButton from "../shared/EditButton";
+import DeleteButton from "../../shared/DeleteButton";
+import EditButton from "../../shared/EditButton";
 
-export default function ProductCard({item, onModalOpen, handleProductDelete}) {
-  
+export default function ProductCard({ item, onModalOpen, handleProductDelete }) {
   return (
     <div className="shadow-md rounded-lg product-card">
       <div className='flex justify-between items-center rounded-t-lg py-2 px-3 bg-primary text-gray-100'>
@@ -35,7 +34,6 @@ export default function ProductCard({item, onModalOpen, handleProductDelete}) {
               <th className="text-left font-bold text-gray-700 p-1 pb-2">Description</th>
               <td className="p-1 pb-2">{item.description}</td>
             </tr>
-
           </tbody>
         </table>
       </div>

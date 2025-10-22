@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react"
-import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 
-import useAuth from "./hooks/useAuth"
-import useRefreshToken from './api/useRefreshToken'
+import useAuth from "./hooks/useAuth";
+import useRefreshToken from './api/useRefreshToken';
 
-import ProductPage from "./pages/ProductPage"
-import StorePage from "./pages/StorePage"
-import FaqPage from "./pages/FaqPage"
-import LoginPage from "./pages/LoginPage"
-import OverviewPage from "./pages/OverviewPage"
-import NavbarLayout from "./components/NavbarLayout/NavbarLayout"
-import Modal from "./components/Modal/Modal"
+import ProductPage from "./pages/ProductPage";
+import StorePage from "./pages/StorePage";
+import FaqPage from "./pages/FaqPage";
+import LoginPage from "./pages/LoginPage";
+import OverviewPage from "./pages/OverviewPage";
+import NavbarLayout from "./components/shared/NavbarLayout/NavbarLayout.jsx";
+import Modal from "./components/modal/Modal.jsx";
 
 
 export default function App() {

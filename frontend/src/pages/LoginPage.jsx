@@ -1,6 +1,5 @@
-import { useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { useLocation, useNavigate, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useApi from "../api/useApi";
 
@@ -18,7 +17,7 @@ export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  async function handleLoginSubmit(e) {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
       setIsLoading(true);

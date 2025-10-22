@@ -2,7 +2,8 @@ import { summaryData } from "../../data/mockDashboardData"
 
 const SummarySection = ({ className }) => {
   return (
-    <div className={`dashboard-card grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-col justify-evenly items-stretch *:border-b-2 *:border-gray-200 *:p-2 gap-3 ${className}`}>
+    <div className={`dashboard-card grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-col justify-evenly items-stretch *:border-b-2 *:border-gray-200 *:p-2 gap-3 ${className}`}
+    >
       {summaryData?.map((item) => (
         <div
           key={item.id}

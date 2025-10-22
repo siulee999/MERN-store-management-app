@@ -1,11 +1,11 @@
-import SectionHeader from '../components/SectionHeader/SectionHeader.jsx'
-import ProductCard from '../components/ProductCard/ProductCard.jsx'
-import ProductTable from '../components/ProductTable/ProductTable.jsx'
 import { useState } from "react";
-import useApi from "../api/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
-import ProductCardSkeleton from '../components/Skeletons/ProductCardSkeleton.jsx';
-import ProductTableSkeleton from '../components/Skeletons/ProductTableSkeleton.jsx';
+import useApi from "../api/useApi";
+import SectionHeader from '../components/shared/SectionHeader/SectionHeader.jsx';
+import ProductCard from '../components/productPage/ProductCard/ProductCard.jsx';
+import ProductTable from '../components/productPage/ProductTable/ProductTable.jsx';
+import ProductCardSkeleton from '../components/skeletons/ProductCardSkeleton.jsx';
+import ProductTableSkeleton from '../components/skeletons/ProductTableSkeleton.jsx';
 
 export default function ProductPage({ handleModalOpen }) {
   const api = useApi();
@@ -13,11 +13,10 @@ export default function ProductPage({ handleModalOpen }) {
   const location = useLocation();
 
   const [productList, setProductList] = useState([]);
-
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  async function handleProductSubmit(mode, newData, id) {
+  const handleProductSubmit = async (mode, newData, id) => {
     try {
       setIsLoading(true);
       if (mode === "Add") {
@@ -42,7 +41,7 @@ export default function ProductPage({ handleModalOpen }) {
     }
   }
 
-  async function handleProductDelete(id, idName) {
+  const handleProductDelete = async (id, idName) => {
     try {
       setIsLoading(true);
 
@@ -64,7 +63,7 @@ export default function ProductPage({ handleModalOpen }) {
     }
   }
 
-  async function handleProductSearch(keyword) {
+  const handleProductSearch = async (keyword) => {
     try {
       setIsLoading(true);
 
@@ -81,41 +80,56 @@ export default function ProductPage({ handleModalOpen }) {
   }
 
   return (
-    <div className='section-content'>
-      <SectionHeader sectionName={"Products"} section={"products"} onSearch={handleProductSearch} onModalOpen={() => { handleModalOpen("products", "Add", null, handleProductSubmit) }} />
-      {
-        errorMsg && <p className="text-red-700">{errorMsg}</p>
-      }
-      {
-        isLoading
-          ? (
-            <>
-              <div className="sm:hidden flex flex-col gap-6 w-full"><ProductCardSkeleton number={3}/></div>
-              <div className='hidden sm:block bg-white rounded-lg shadow-lg overflow-x-auto w-full'><ProductTableSkeleton rowNumber={3}/></div>
-            </>
-          )
-          : (
-            <>
-              <div className='sm:hidden flex flex-col gap-6 w-full'>
-                {
-                  productList?.map((item) => (
-                    <ProductCard key={item._id} item={item} handleProductDelete={handleProductDelete} onModalOpen={() => handleModalOpen("products", "Edit", item, handleProductSubmit)} />
-                  ))
-                }
-              </div>
+    <main className='section-content'>
+      <SectionHeader
+        sectionName={"Products"}
+        section={"products"}
+        onSearch={handleProductSearch}
+        onModalOpen={() => { handleModalOpen("products", "Add", null, handleProductSubmit) }}
+      />
+      {errorMsg && <p className="text-red-700">{errorMsg}</p>}
+      {isLoading
+        ? (
+          <>
+            {/* Mobile view */}
+            <div className="sm:hidden flex flex-col gap-6 w-full">
+              <ProductCardSkeleton number={3} />
+            </div>
 
-              {
-                productList?.length > 0 && (
-                  <div className='hidden sm:block bg-white rounded-lg shadow-lg overflow-x-auto w-full'>
-                    <ProductTable productList={productList} handleProductDelete={handleProductDelete} handleModalOpen={handleModalOpen} handleProductSubmit={handleProductSubmit}/>
-                  </div>)
+            {/* Tablet and Desktop view */}
+            <div className='hidden sm:block bg-white rounded-lg shadow-lg overflow-x-auto w-full'>
+              <ProductTableSkeleton rowNumber={3} />
+            </div>
+          </>
+        )
+        : (
+          <>
+            {/* Mobile View */}
+            <div className='sm:hidden flex flex-col gap-6 w-full'>
+              {productList?.length > 0 && productList.map((item) => (
+                <ProductCard
+                  key={item._id}
+                  item={item}
+                  handleProductDelete={handleProductDelete}
+                  onModalOpen={() => handleModalOpen("products", "Edit", item, handleProductSubmit)}
+                />))
               }
-            </>
-          )
+            </div>
+
+            {/* Tablet and Desktop View */}
+            {productList?.length > 0 && (
+              <div className='hidden sm:block bg-white rounded-lg shadow-lg overflow-x-auto w-full'>
+                <ProductTable
+                  productList={productList}
+                  handleProductDelete={handleProductDelete}
+                  handleModalOpen={handleModalOpen}
+                  handleProductSubmit={handleProductSubmit}
+                />
+              </div>)
+            }
+          </>
+        )
       }
-
-
-
-    </div>
+    </main>
   )
 }

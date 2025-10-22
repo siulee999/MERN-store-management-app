@@ -1,8 +1,7 @@
-import DeleteButton from "../shared/DeleteButton";
-import EditButton from "../shared/EditButton";
+import DeleteButton from "../../shared/DeleteButton";
+import EditButton from "../../shared/EditButton";
 
-export default function StoreCard({item, onModalOpen, handleStoreDelete}) {
-  
+export default function StoreCard({ item, onModalOpen, handleStoreDelete }) {
   return (
     <div className="shadow-lg rounded-lg overflow-x-auto hover:bg-gray-50">
       <div className="flex flex-col justify-between h-full">
