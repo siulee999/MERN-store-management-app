@@ -4,7 +4,7 @@ import axios from "./axios";
 export default function useApi() {
   const axiosPrivate = useAxiosPrivate();
 
-  const api = {
+  const api = {    
     async fetchData(section) {
       const response = await axios.get(`/${section}`);
       return response.data;
@@ -15,7 +15,7 @@ export default function useApi() {
       return response.data;
     },
 
-    async updateData(section, id, data) {
+    async updateData(section, data, id) {
       const response = await axiosPrivate.put(`/${section}/edit/${id}`, data);
       return response.data;
     },

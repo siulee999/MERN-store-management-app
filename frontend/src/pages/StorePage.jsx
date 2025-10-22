@@ -1,79 +1,81 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useApi from "../api/useApi";
 import SectionHeader from "../components/shared/SectionHeader/SectionHeader.jsx";
 import StoreCard from "../components/storePage/StoreCard/StoreCard.jsx";
 import StoreCardSkeleton from "../components/skeletons/StoreCardSkeleton.jsx";
+
 
 export default function StorePage({ handleModalOpen }) {
   const api = useApi();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [storeList, setStoreList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleStoreSubmit = async (mode, newData, id) => {
-    try {
-      setIsLoading(true);
-      if (mode === "Add") {
-        const created = await api.createData("shops", newData);
-        setStoreList((prev) => [created, ...prev]);
+  const {
+    data: storeList,
+    isLoading,
+    error
+  } = useQuery({
+    queryKey: ["store"],
+    queryFn: () => api.fetchData("shops"),
+    staleTime: 1000 * 60 * 5
+  });
 
-      } else if (mode === "Edit" && id) {
-        const updated = await api.updateData("shops", id, newData);
-        setStoreList((prev) => prev.map(item => item._id === id ? updated : item));
-      }
+  const filteredStoreList = searchTerm
+    ? storeList.filter(s => s.shopIdName.toLowerCase().includes(searchTerm) || s.address.toLowerCase().includes(searchTerm) || s.shopName.toLowerCase().includes(searchTerm))
+    : storeList;
 
-    } catch (err) {
-      if (err.response?.status === 401) {
-        alert("You have logged out. Please login again.");
-        navigate("/login", { state: { from: location } });
-      } else {
-        setErrorMsg(err.message);
-        console.log(err);
-      }
-    } finally {
-      setIsLoading(false);
+
+  const queryClient = useQueryClient();
+
+  const mutationError = (err) => {
+    if (err.response?.status === 401) {
+      alert("You have logged out. Please login again.");
+      navigate("/login", { state: { from: location } });
+    } else {
+      alert(err.message);
+    }
+  };
+
+  const addStoreMutation = useMutation({
+    mutationFn: ({ newData }) => api.createData("shops", newData),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["stores"]);
+    },
+    onError: mutationError
+  });
+
+  const updateStoreMutation = useMutation({
+    mutationFn: ({ newData, id }) => api.updateData("shops", newData, id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["stores"]);
+    },
+    onError: mutationError
+  });
+
+  const deleteStoreMutation = useMutation({
+    mutationFn: ({ id }) => api.deleteData("shops", id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["stores"]);
+      alert("Item deleted successfully.");
+    },
+    onError: mutationError
+  })
+
+  const handleStoreSubmit = (mode, newData, id) => {
+    if (mode === "Add") {
+      addStoreMutation.mutate({ newData });
+    } else if (mode === "Edit" && id) {
+      updateStoreMutation.mutate({ newData, id });
     }
   }
 
-  const handleStoreDelete = async (id, idName) => {
-    try {
-      setIsLoading(true);
-
-      if (confirm(`Are you sure to delete Store ${idName}?`)) {
-        await api.deleteData("shops", id);
-        setStoreList((prev) => prev.filter(item => item._id != id));
-        alert("Item deleted successfully.");
-      }
-    } catch (err) {
-      if (err.response?.status === 401) {
-        alert("You have logged out. Please login again.");
-        navigate("/login", { state: { from: location } });
-      } else {
-        setErrorMsg(err.message);
-        console.log(err);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  const handleStoreSearch = async (keyword) => {
-    try {
-      setIsLoading(true);
-
-      const result = await api.searchData("shops", keyword);
-      setStoreList(result);
-
-    } catch (err) {
-      setErrorMsg(err.message);
-      console.log(err);
-
-    } finally {
-      setIsLoading(false);
+  const handleStoreDelete = (id, idName) => {
+    if (confirm(confirm(`Are you sure to delete Store ${idName}?`))) {
+      deleteStoreMutation.mutate({ id });
     }
   }
 
@@ -82,10 +84,11 @@ export default function StorePage({ handleModalOpen }) {
       <SectionHeader
         sectionName={"Stores"}
         section={"shops"}
-        onSearch={handleStoreSearch}
+        onSearch={(keyword) => setSearchTerm(keyword)}
+        searchTerm={searchTerm}
         onModalOpen={() => handleModalOpen("shops", "Add", null, handleStoreSubmit)}
       />
-      {errorMsg && <p className="text-red-700">{errorMsg}</p>}
+      {error && <p className="text-red-700">{error.message}</p>}
       {isLoading
         ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
@@ -93,7 +96,7 @@ export default function StorePage({ handleModalOpen }) {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {storeList?.length > 0 && storeList.map((item) => (
+            {filteredStoreList?.length > 0 && filteredStoreList.map((item) => (
               <StoreCard
                 key={item._id}
                 item={item}

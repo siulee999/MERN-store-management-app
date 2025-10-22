@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 
-export default function SectionHeader({ onSearch, sectionName, onModalOpen }) {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function SectionHeader({ onSearch, searchTerm, sectionName, onModalOpen }) {
+  // const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    onSearch(searchTerm);
-  }, [searchTerm]);
+  // useEffect(() => {
+  //   onSearch(searchTerm);
+  // }, [searchTerm]);
 
   return (
     <header className='flex justify-between items-center mb-4 w-full h-10'>
@@ -16,7 +16,8 @@ export default function SectionHeader({ onSearch, sectionName, onModalOpen }) {
         <input 
           placeholder='Search' 
           className='border border-gray-100 rounded-3xl h-full w-full pl-9 pr-5 shadow-inner outline-0 focus:shadow-sm'
-          onChange={(e) => {setSearchTerm(e.target.value)}}
+          value={searchTerm}
+          onChange={(e) => {onSearch(e.target.value.toLowerCase().trim())}}
           />
         <div className='absolute left-0 top-0 h-full p-2 text-gray-700'>
           <IoSearch size={23}/>
