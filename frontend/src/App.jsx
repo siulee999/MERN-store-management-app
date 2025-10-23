@@ -10,7 +10,7 @@ import FaqPage from "./pages/FaqPage";
 import LoginPage from "./pages/LoginPage";
 import OverviewPage from "./pages/OverviewPage";
 import NavbarLayout from "./components/shared/NavbarLayout/NavbarLayout";
-import Modal from "./components/modal/Modal";
+import Modal from "./components/modals/Modal.jsx";
 
 
 export default function App() {
