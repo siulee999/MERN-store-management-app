@@ -5,8 +5,8 @@ import useApi from "../api/useApi.js";
 import SectionHeader from '../components/shared/SectionHeader/SectionHeader';
 import ProductCard from '../components/productPage/ProductCard/ProductCard';
 import ProductTable from '../components/productPage/ProductTable/ProductTable';
-import ProductCardSkeleton from '../components/skeletons/ProductCardSkeleton';
-import ProductTableSkeleton from '../components/skeletons/ProductTableSkeleton';
+import ProductCardSkeleton from '../components/loadingSkeletons/ProductCardSkeleton.jsx';
+import ProductTableSkeleton from '../components/loadingSkeletons/ProductTableSkeleton.jsx';
 
 export default function ProductPage({ handleModalOpen }) {
   const api = useApi();

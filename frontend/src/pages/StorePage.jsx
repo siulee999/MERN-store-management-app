@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useApi from "../api/useApi.js";
 import SectionHeader from "../components/shared/SectionHeader/SectionHeader";
 import StoreCard from "../components/storePage/StoreCard/StoreCard";
-import StoreCardSkeleton from "../components/skeletons/StoreCardSkeleton";
+import StoreCardSkeleton from "../components/loadingSkeletons/StoreCardSkeleton.jsx";
 
 
 export default function StorePage({ handleModalOpen }) {
