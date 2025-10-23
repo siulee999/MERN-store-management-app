@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import useApi from "../api/useApi";
-import SectionHeader from '../components/shared/SectionHeader/SectionHeader.jsx';
-import ProductCard from '../components/productPage/ProductCard/ProductCard.jsx';
-import ProductTable from '../components/productPage/ProductTable/ProductTable.jsx';
-import ProductCardSkeleton from '../components/skeletons/ProductCardSkeleton.jsx';
-import ProductTableSkeleton from '../components/skeletons/ProductTableSkeleton.jsx';
+import useApi from "../api/useApi.js";
+import SectionHeader from '../components/shared/SectionHeader/SectionHeader';
+import ProductCard from '../components/productPage/ProductCard/ProductCard';
+import ProductTable from '../components/productPage/ProductTable/ProductTable';
+import ProductCardSkeleton from '../components/skeletons/ProductCardSkeleton';
+import ProductTableSkeleton from '../components/skeletons/ProductTableSkeleton';
 
 export default function ProductPage({ handleModalOpen }) {
   const api = useApi();

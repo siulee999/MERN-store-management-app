@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
-import axios from "../../../api/axios";
+import useAuth from "../../../hooks/useAuth.js";
+import axios from "../../../api/axios.js";
 
 import { RxHamburgerMenu } from "react-icons/rx";
 import { TbLogin2, TbLogout2 } from "react-icons/tb";
-import { navList } from "../../../data/navbar";
+import { navList } from "../../../data/navbar.js";
 
 
 export default function Navbar() {

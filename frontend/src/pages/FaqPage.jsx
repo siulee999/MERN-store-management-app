@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import useApi from "../api/useApi";
+import useApi from "../api/useApi.js";
 import SectionHeader from "../components/shared/SectionHeader/SectionHeader";
 import FaqCard from "../components/faqPage/FaqCard/FaqCard";
 import FaqCardSkeleton from "../components/skeletons/FaqCardSkeleton";

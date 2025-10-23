@@ -1,13 +1,6 @@
-// import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 
 export default function SectionHeader({ onSearch, searchTerm, sectionName, onModalOpen }) {
-  // const [searchTerm, setSearchTerm] = useState("");
-
-  // useEffect(() => {
-  //   onSearch(searchTerm);
-  // }, [searchTerm]);
-
   return (
     <header className='flex justify-between items-center mb-4 w-full h-10'>
       <h1 className='text-2xl text-primary font-bold'>{sectionName}</h1>

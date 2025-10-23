@@ -1,6 +1,6 @@
-import FaqModalContent from "./FaqModalContent";
-import ProductModalContent from "./ProductModalContent";
-import StoreModalContent from "./StoreModalContent";
+import FaqModalContent from "./FaqModalContent.jsx";
+import ProductModalContent from "./ProductModalContent.jsx";
+import StoreModalContent from "./StoreModalContent.jsx";
 
 export default function Modal({ modal, handleModalClose }) {
   const { section, mode, content, onSubmit } = modal;

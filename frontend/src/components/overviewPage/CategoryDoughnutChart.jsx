@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { salesByCategoryData, totalRevenueData } from "../../data/mockDashboardData";
 import { Doughnut } from "react-chartjs-2";
-import { formatValue } from "../../utils/formatValue";
+import { formatValue } from "../../utils/formatValue.js";
 
 const CategoryDoughnutChart = ({ className }) => {
   const [legendPosition, setLegendPosition] = useState("bottom");

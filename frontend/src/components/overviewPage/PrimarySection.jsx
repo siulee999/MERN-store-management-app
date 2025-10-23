@@ -1,5 +1,5 @@
-import { totalRevenueData } from "../../data/mockDashboardData";
-import { formatValue } from "../../utils/formatValue";
+import { totalRevenueData } from "../../data/mockDashboardData.js";
+import { formatValue } from "../../utils/formatValue.js";
 
 const PrimarySection = ({ className }) => {
   const getTrendIcon = (trend) => {

@@ -1,4 +1,4 @@
-import { summaryData } from "../../data/mockDashboardData"
+import { summaryData } from "../../data/mockDashboardData.js";
 
 const SummarySection = ({ className }) => {
   return (

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import useApi from "../api/useApi";
-import SectionHeader from "../components/shared/SectionHeader/SectionHeader.jsx";
-import StoreCard from "../components/storePage/StoreCard/StoreCard.jsx";
-import StoreCardSkeleton from "../components/skeletons/StoreCardSkeleton.jsx";
+import useApi from "../api/useApi.js";
+import SectionHeader from "../components/shared/SectionHeader/SectionHeader";
+import StoreCard from "../components/storePage/StoreCard/StoreCard";
+import StoreCardSkeleton from "../components/skeletons/StoreCardSkeleton";
 
 
 export default function StorePage({ handleModalOpen }) {

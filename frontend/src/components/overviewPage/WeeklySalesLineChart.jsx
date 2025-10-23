@@ -1,5 +1,5 @@
 import { Line } from "react-chartjs-2";
-import { weeklySalesData } from "../../data/mockDashboardData";
+import { weeklySalesData } from "../../data/mockDashboardData.js";
 
 const WeeklySalesLineChart = ({ className }) => {
   const data = {

@@ -1,6 +1,6 @@
-import { salesByStoreData } from "../../data/mockDashboardData"
 import { Chart } from "react-chartjs-2";
-import { formatValue } from "../../utils/formatValue";
+import { salesByStoreData } from "../../data/mockDashboardData.js";
+import { formatValue } from "../../utils/formatValue.js";
 
 const StoreSalesBarChart = ({ className }) => {
   const data = {
